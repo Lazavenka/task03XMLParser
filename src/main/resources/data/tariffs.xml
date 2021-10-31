@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<AbstractTariffs xmlns="http://www.lozovenko.by/tariffs"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.lozovenko.by/tariffs tariffs.xsd">
+    <smartphoneTariff tariffId="ID-0001">
+        <name>Комфорт М</name>
+        <payment>21.73</payment>
+        <tariffParameters>
+            <favouriteNumber>0</favouriteNumber>
+            <connectionPayment>0</connectionPayment>
+            <billing>MINUTE</billing>
+        </tariffParameters>
+        <operator>A1</operator>
+        <includeMinutes>1000</includeMinutes>
+        <includeTraffic type="GB">
+            <count>10</count>
+        </includeTraffic>
+        <trafficCostOverIncluded>0.1</trafficCostOverIncluded>
+        <callPrice>
+            <insideNetworkCallPrice>0.05</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.15</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.22</stationaryPhoneCallPrice>
+        </callPrice>
+    </smartphoneTariff>
+    <internetTariff tariffId="ID-0002">
+        <name>Домашний</name>
+        <payment>25.5</payment>
+        <tariffParameters>
+            <favouriteNumber>0</favouriteNumber>
+            <connectionPayment>10.5</connectionPayment>
+            <billing>NONE</billing>
+        </tariffParameters>
+        <operator>MTS</operator>
+        <includeTraffic type="GB">
+            <count>1000</count>
+        </includeTraffic>
+        <overTrafficPrice>0.01</overTrafficPrice>
+    </internetTariff>
+    <mobileTariff tariffId="ID-0003">
+        <name>Старая школа</name>
+        <payment>4.5</payment>
+        <tariffParameters>
+            <favouriteNumber>20</favouriteNumber>
+            <connectionPayment>0</connectionPayment>
+            <billing>SECOND</billing>
+        </tariffParameters>
+        <operator>LIFE</operator>
+        <includeMinutes>1000</includeMinutes>
+        <callPrice>
+            <insideNetworkCallPrice>0</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.05</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.03</stationaryPhoneCallPrice>
+        </callPrice>
+    </mobileTariff>
+    <smartphoneTariff tariffId="ID-0004">
+        <name>Бизнес УЛЬТРА</name>
+        <payment>125.5</payment>
+        <tariffParameters>
+            <favouriteNumber>10</favouriteNumber>
+            <connectionPayment>5.5</connectionPayment>
+            <billing>TVELVESECOND</billing>
+        </tariffParameters>
+        <operator>A1</operator>
+        <includeMinutes>10000</includeMinutes>
+        <includeTraffic type="GB">
+            <count>1000</count>
+        </includeTraffic>
+        <trafficCostOverIncluded>0.01</trafficCostOverIncluded>
+        <callPrice>
+            <insideNetworkCallPrice>0</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.01</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.01</stationaryPhoneCallPrice>
+        </callPrice>
+    </smartphoneTariff>
+    <mobileTariff tariffId="ID-0005">
+        <name>Позвони+</name>
+        <payment>12.3</payment>
+        <tariffParameters>
+            <favouriteNumber>50</favouriteNumber>
+            <connectionPayment>2.2</connectionPayment>
+            <billing>SECOND</billing>
+        </tariffParameters>
+        <operator>MTS</operator>
+        <includeMinutes>250</includeMinutes>
+        <callPrice>
+            <insideNetworkCallPrice>0.01</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.02</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.03</stationaryPhoneCallPrice>
+        </callPrice>
+    </mobileTariff>
+    <smartphoneTariff tariffId="ID-0006">
+        <name>Стартовый</name>
+        <payment>8.93</payment>
+        <tariffParameters>
+            <favouriteNumber>0</favouriteNumber>
+            <connectionPayment>0</connectionPayment>
+            <billing>MINUTE</billing>
+        </tariffParameters>
+        <operator>A1</operator>
+        <includeMinutes>100</includeMinutes>
+        <includeTraffic type="MB">
+            <count>500</count>
+        </includeTraffic>
+        <trafficCostOverIncluded>0.1</trafficCostOverIncluded>
+        <callPrice>
+            <insideNetworkCallPrice>0</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.12</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.2</stationaryPhoneCallPrice>
+        </callPrice>
+    </smartphoneTariff>
+</AbstractTariffs>

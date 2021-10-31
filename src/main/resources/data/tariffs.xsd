@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.lozovenko.by/tariffs"
+        xmlns:tns="http://www.lozovenko.by/tariffs"
+        elementFormDefault="qualified">
+    <element name="AbstractTariffs">
+        <complexType>
+            <sequence>
+                <element ref="tns:Tariffs" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <complexType name="TariffType">
+        <sequence>
+            <element name="name" type="string"/>
+            <element name="payment" type="tns:NonNegativeDouble"/>
+            <element name="tariffParameters" type="tns:TariffParameters"/>
+            <element name="operator">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="A1"/>
+                        <enumeration value="MTS"/>
+                        <enumeration value="LIFE"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+        <attribute name="tariffId" type="tns:TariffID" use="required"/>
+    </complexType>
+    <complexType name="InternetTariffType">
+        <complexContent>
+            <extension base="tns:TariffType">
+                <sequence>
+                    <element name="includeTraffic" type="tns:Traffic"/>
+                    <element name="overTrafficPrice" type="tns:NonNegativeDouble"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="TariffParameters">
+        <sequence>
+            <element name="favouriteNumber" type="nonNegativeInteger"/>
+            <element name="connectionPayment" type="tns:NonNegativeDouble"/>
+            <element name="billing">
+                <simpleType>
+                    <restriction base="string">
+                        <enumeration value="SECOND"/>
+                        <enumeration value="TVELVESECOND"/>
+                        <enumeration value="MINUTE"/>
+                        <enumeration value="NONE"/>
+                    </restriction>
+                </simpleType>
+            </element>
+        </sequence>
+    </complexType>
+    <complexType name="SmartphoneTariffType">
+        <complexContent>
+            <extension base="tns:TariffType">
+                <sequence>
+                    <element name="includeMinutes" type="nonNegativeInteger"/>
+                    <element name="includeTraffic" type="tns:Traffic"/>
+                    <element name="trafficCostOverIncluded" type="tns:NonNegativeDouble"/>
+                    <element name="callPrice" type="tns:CallPrise"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="MobileTariffType">
+        <complexContent>
+            <extension base="tns:TariffType">
+                <sequence>
+                    <element name="includeMinutes" type="nonNegativeInteger"/>
+                    <element name="callPrice" type="tns:CallPrise"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="Traffic">
+        <sequence>
+            <element name="count" type="nonNegativeInteger"/>
+        </sequence>
+        <attribute name="type" type="tns:TrafficType" use="required"/>
+    </complexType>
+    <complexType name="CallPrise">
+        <sequence>
+            <element name="insideNetworkCallPrice" type="tns:NonNegativeDouble"/>
+            <element name="outsideNetworkCallPrice" type="tns:NonNegativeDouble"/>
+            <element name="stationaryPhoneCallPrice" type="tns:NonNegativeDouble"/>
+        </sequence>
+    </complexType>
+    <simpleType name="NonNegativeDouble">
+        <restriction base="double">
+            <minInclusive value="0"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="TrafficType">
+        <restriction base="string">
+            <enumeration value="KB"/>
+            <enumeration value="MB"/>
+            <enumeration value="GB"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="TariffID">
+        <restriction base="ID">
+            <pattern value="ID-[0-9][0-9][0-9][0-9]"/>
+        </restriction>
+    </simpleType>
+    <element name="Tariffs" type="tns:TariffType" abstract="true"/>
+    <element name="internetTariff" type="tns:InternetTariffType" substitutionGroup="tns:Tariffs"/>
+    <element name="smartphoneTariff" type="tns:SmartphoneTariffType" substitutionGroup="tns:Tariffs"/>
+    <element name="mobileTariff" type="tns:MobileTariffType" substitutionGroup="tns:Tariffs"/>
+</schema>
