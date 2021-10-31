@@ -3,21 +3,21 @@ package by.lozovenko.xmlparser.entity;
 import java.math.BigDecimal;
 
 public class InternetTariff extends AbstractTariff{
-    private int includedInternetTraffic;
+    private InternetTraffic includedInternetTraffic;
     private BigDecimal trafficCostOverIncluded;
     public InternetTariff(){}
     public InternetTariff(String tariffId, String name, MobileOperator operatorName, BigDecimal payroll, TariffParameter parameter,
-                          int includedInternetTraffic, BigDecimal trafficCostOverIncluded) {
+                          InternetTraffic includedInternetTraffic, BigDecimal trafficCostOverIncluded) {
         super(tariffId, name, operatorName, payroll, parameter);
         this.includedInternetTraffic = includedInternetTraffic;
         this.trafficCostOverIncluded = trafficCostOverIncluded;
     }
 
-    public int getIncludedInternetTraffic() {
+    public InternetTraffic getIncludedInternetTraffic() {
         return includedInternetTraffic;
     }
 
-    public void setIncludedInternetTraffic(int includedInternetTraffic) {
+    public void setIncludedInternetTraffic(InternetTraffic includedInternetTraffic) {
         this.includedInternetTraffic = includedInternetTraffic;
     }
 
@@ -27,5 +27,13 @@ public class InternetTariff extends AbstractTariff{
 
     public void setTrafficCostOverIncluded(BigDecimal trafficCostOverIncluded) {
         this.trafficCostOverIncluded = trafficCostOverIncluded;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(includedInternetTraffic);
+        sb.append("\n\ttrafficCostOverIncluded=").append(trafficCostOverIncluded);
+        return sb.toString();
     }
 }

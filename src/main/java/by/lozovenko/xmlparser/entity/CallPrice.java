@@ -37,4 +37,13 @@ public class CallPrice {
     public void setStationaryPhoneCallPrice(BigDecimal stationaryPhoneCallPrice) {
         this.stationaryPhoneCallPrice = stationaryPhoneCallPrice;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("\n\tCallPrice:");
+        sb.append("\n\t\tinsideNetworkCallPrice=").append(insideNetworkCallPrice);
+        sb.append("\n\t\toutsideNetworkCallPrice=").append(outsideNetworkCallPrice);
+        sb.append("\n\t\tstationaryPhoneCallPrice=").append(stationaryPhoneCallPrice);
+        return sb.toString();
+    }
 }

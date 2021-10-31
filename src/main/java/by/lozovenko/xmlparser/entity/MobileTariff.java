@@ -32,4 +32,12 @@ public class MobileTariff extends AbstractTariff{
     public void setCallPrice(CallPrice callPrice) {
         this.callPrice = callPrice;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(super.toString());
+        sb.append("\n\tincludeMinutes=").append(includeMinutes);
+        sb.append(callPrice);
+        return sb.toString();
+    }
 }

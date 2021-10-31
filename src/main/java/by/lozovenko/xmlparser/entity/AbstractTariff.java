@@ -57,4 +57,15 @@ public class AbstractTariff {
     public void setParameter(TariffParameter parameter) {
         this.parameter = parameter;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("\nTariff - ").append(getClass().getSimpleName());
+        sb.append("\n\ttariffId='").append(tariffId).append('\'');
+        sb.append("\n\tname='").append(name).append('\'');
+        sb.append("\n\toperatorName=").append(operatorName);
+        sb.append("\n\tpayroll=").append(payroll);
+        sb.append(parameter);
+        return sb.toString();
+    }
 }

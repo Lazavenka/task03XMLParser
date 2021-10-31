@@ -3,7 +3,7 @@ package by.lozovenko.xmlparser.entity;
 import java.math.BigDecimal;
 
 public class SmartphoneTariff extends AbstractTariff{
-    private int includedInternetTraffic;
+    private InternetTraffic includedInternetTraffic;
     private int includeMinutes;
     private BigDecimal trafficCostOverIncluded;
     private CallPrice callPrice;
@@ -11,7 +11,7 @@ public class SmartphoneTariff extends AbstractTariff{
     public SmartphoneTariff(){
     }
     public SmartphoneTariff(String tariffId, String name, MobileOperator operatorName, BigDecimal payroll, TariffParameter parameter,
-                            int includedInternetTraffic, int includeMinutes, BigDecimal trafficCostOverIncluded,
+                            InternetTraffic includedInternetTraffic, int includeMinutes, BigDecimal trafficCostOverIncluded,
                             CallPrice callPrice) {
         super(tariffId, name, operatorName, payroll, parameter);
         this.includedInternetTraffic = includedInternetTraffic;
@@ -20,11 +20,11 @@ public class SmartphoneTariff extends AbstractTariff{
         this.callPrice = callPrice;
     }
 
-    public int getIncludedInternetTraffic() {
+    public InternetTraffic getIncludedInternetTraffic() {
         return includedInternetTraffic;
     }
 
-    public void setIncludedInternetTraffic(int includedInternetTraffic) {
+    public void setIncludedInternetTraffic(InternetTraffic includedInternetTraffic) {
         this.includedInternetTraffic = includedInternetTraffic;
     }
 
@@ -50,5 +50,15 @@ public class SmartphoneTariff extends AbstractTariff{
 
     public void setCallPrice(CallPrice callPrice) {
         this.callPrice = callPrice;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder(super.toString());
+        sb.append(includedInternetTraffic);
+        sb.append("\n\ttrafficCostOverIncluded=").append(trafficCostOverIncluded);
+        sb.append("\n\tincludeMinutes=").append(includeMinutes);
+        sb.append(callPrice);
+        return sb.toString();
     }
 }

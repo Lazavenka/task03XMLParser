@@ -5,16 +5,16 @@
                  xsi:schemaLocation="http://www.lozovenko.by/tariffs tariffs.xsd">
     <smartphoneTariff tariffId="ID-0001">
         <name>Комфорт М</name>
-        <payment>21.73</payment>
+        <payroll>21.73</payroll>
         <tariffParameters>
-            <favouriteNumber>0</favouriteNumber>
+            <favouriteNumbers>0</favouriteNumbers>
             <connectionPayment>0</connectionPayment>
             <billing>MINUTE</billing>
         </tariffParameters>
         <operator>A1</operator>
-        <includeMinutes>1000</includeMinutes>
-        <includeTraffic type="GB">
-            <count>10</count>
+        <includedMinutes>1000</includedMinutes>
+        <includeTraffic unit="GB">
+            <value>10</value>
         </includeTraffic>
         <trafficCostOverIncluded>0.1</trafficCostOverIncluded>
         <callPrice>
@@ -25,28 +25,28 @@
     </smartphoneTariff>
     <internetTariff tariffId="ID-0002">
         <name>Домашний</name>
-        <payment>25.5</payment>
+        <payroll>25.5</payroll>
         <tariffParameters>
-            <favouriteNumber>0</favouriteNumber>
+            <favouriteNumbers>0</favouriteNumbers>
             <connectionPayment>10.5</connectionPayment>
             <billing>NONE</billing>
         </tariffParameters>
         <operator>MTS</operator>
-        <includeTraffic type="GB">
-            <count>1000</count>
+        <includeTraffic unit="GB">
+            <value>1000</value>
         </includeTraffic>
-        <overTrafficPrice>0.01</overTrafficPrice>
+        <trafficCostOverIncluded>0.01</trafficCostOverIncluded>
     </internetTariff>
     <mobileTariff tariffId="ID-0003">
         <name>Старая школа</name>
-        <payment>4.5</payment>
+        <payroll>4.5</payroll>
         <tariffParameters>
-            <favouriteNumber>20</favouriteNumber>
+            <favouriteNumbers>20</favouriteNumbers>
             <connectionPayment>0</connectionPayment>
             <billing>SECOND</billing>
         </tariffParameters>
         <operator>LIFE</operator>
-        <includeMinutes>1000</includeMinutes>
+        <includedMinutes>1000</includedMinutes>
         <callPrice>
             <insideNetworkCallPrice>0</insideNetworkCallPrice>
             <outsideNetworkCallPrice>0.05</outsideNetworkCallPrice>
@@ -55,16 +55,16 @@
     </mobileTariff>
     <smartphoneTariff tariffId="ID-0004">
         <name>Бизнес УЛЬТРА</name>
-        <payment>125.5</payment>
+        <payroll>125.5</payroll>
         <tariffParameters>
-            <favouriteNumber>10</favouriteNumber>
+            <favouriteNumbers>10</favouriteNumbers>
             <connectionPayment>5.5</connectionPayment>
             <billing>TVELVESECOND</billing>
         </tariffParameters>
         <operator>A1</operator>
-        <includeMinutes>10000</includeMinutes>
-        <includeTraffic type="GB">
-            <count>1000</count>
+        <includedMinutes>10000</includedMinutes>
+        <includeTraffic unit="GB">
+            <value>1000</value>
         </includeTraffic>
         <trafficCostOverIncluded>0.01</trafficCostOverIncluded>
         <callPrice>
@@ -75,14 +75,14 @@
     </smartphoneTariff>
     <mobileTariff tariffId="ID-0005">
         <name>Позвони+</name>
-        <payment>12.3</payment>
+        <payroll>12.3</payroll>
         <tariffParameters>
-            <favouriteNumber>50</favouriteNumber>
+            <favouriteNumbers>50</favouriteNumbers>
             <connectionPayment>2.2</connectionPayment>
             <billing>SECOND</billing>
         </tariffParameters>
         <operator>MTS</operator>
-        <includeMinutes>250</includeMinutes>
+        <includedMinutes>250</includedMinutes>
         <callPrice>
             <insideNetworkCallPrice>0.01</insideNetworkCallPrice>
             <outsideNetworkCallPrice>0.02</outsideNetworkCallPrice>
@@ -91,16 +91,16 @@
     </mobileTariff>
     <smartphoneTariff tariffId="ID-0006">
         <name>Стартовый</name>
-        <payment>8.93</payment>
+        <payroll>8.93</payroll>
         <tariffParameters>
-            <favouriteNumber>0</favouriteNumber>
+            <favouriteNumbers>0</favouriteNumbers>
             <connectionPayment>0</connectionPayment>
             <billing>MINUTE</billing>
         </tariffParameters>
         <operator>A1</operator>
-        <includeMinutes>100</includeMinutes>
-        <includeTraffic type="MB">
-            <count>500</count>
+        <includedMinutes>100</includedMinutes>
+        <includeTraffic unit="MB">
+            <value>500</value>
         </includeTraffic>
         <trafficCostOverIncluded>0.1</trafficCostOverIncluded>
         <callPrice>

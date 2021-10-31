@@ -36,4 +36,13 @@ public class TariffParameter {
     public void setBilling(Billing billing) {
         this.billing = billing;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("\n\tTariffParameter");
+        sb.append("\n\t\tfavouriteNumbers=").append(favouriteNumbers);
+        sb.append("\n\t\tconnectionPayment=").append(connectionPayment);
+        sb.append("\n\t\tbilling=").append(billing);
+        return sb.toString();
+    }
 }
