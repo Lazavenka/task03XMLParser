@@ -14,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Set;
 
 
 public class TariffDomBuilder extends AbstractTariffBuilder{
@@ -113,7 +112,6 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
     private String getElementTextContent(Element element, String elementName){
         NodeList list = element.getElementsByTagName(elementName);
         Node node = list.item(0);
-        System.out.println(elementName);
         return node.getTextContent();
     }
     private CallPrice getCallPriceFromElement(Element element){
@@ -128,7 +126,7 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
 
     private InternetTraffic getInternetTrafficFromElement(Element element){
         Element includeTrafficElement = (Element) element.getElementsByTagName("includeTraffic").item(0);
-        InternetUnit unit = InternetUnit.valueOf(includeTrafficElement.getAttribute("unit").toUpperCase());
+        TrafficUnit unit = TrafficUnit.valueOf(includeTrafficElement.getAttribute("unit").toUpperCase());
         int value = Integer.parseInt(getElementTextContent(includeTrafficElement, "value"));
         return new InternetTraffic(value, unit);
     }

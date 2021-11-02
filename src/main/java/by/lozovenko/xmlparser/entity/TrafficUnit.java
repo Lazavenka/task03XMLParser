@@ -1,6 +1,6 @@
 package by.lozovenko.xmlparser.entity;
 
-public enum InternetUnit {
+public enum TrafficUnit {
     KB,
     MB,
     GB

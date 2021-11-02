@@ -2,9 +2,12 @@ package by.lozovenko.xmlparser.entity;
 
 public class InternetTraffic {
     private int value;
-    private InternetUnit unit;
+    private TrafficUnit unit;
 
-    public InternetTraffic(int value, InternetUnit unit) {
+    public InternetTraffic() {
+    }
+
+    public InternetTraffic(int value, TrafficUnit unit) {
         this.value = value;
         this.unit = unit;
     }
@@ -17,12 +20,30 @@ public class InternetTraffic {
         this.value = value;
     }
 
-    public InternetUnit getUnit() {
+    public TrafficUnit getUnit() {
         return unit;
     }
 
-    public void setUnit(InternetUnit unit) {
+    public void setUnit(TrafficUnit unit) {
         this.unit = unit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        InternetTraffic that = (InternetTraffic) o;
+
+        if (value != that.value) return false;
+        return unit == that.unit;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value;
+        result = 31 * result + (unit != null ? unit.hashCode() : 0);
+        return result;
     }
 
     @Override

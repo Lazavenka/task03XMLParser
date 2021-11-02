@@ -8,7 +8,10 @@ public class AbstractTariff {
     private MobileOperator operatorName;
     private BigDecimal payroll;
     private TariffParameter parameter;
-    public AbstractTariff(){}
+
+    public AbstractTariff() {
+    }
+
     public AbstractTariff(String tariffId, String name, MobileOperator operatorName,
                           BigDecimal payroll, TariffParameter parameter) {
         this.tariffId = tariffId;
@@ -56,6 +59,42 @@ public class AbstractTariff {
 
     public void setParameter(TariffParameter parameter) {
         this.parameter = parameter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        AbstractTariff that = (AbstractTariff) o;
+
+        if (tariffId != null ? !tariffId.equals(that.tariffId) : that.tariffId != null) {
+            return false;
+        }
+        if (name != null ? !name.equals(that.name) : that.name != null) {
+            return false;
+        }
+        if (operatorName != that.operatorName) {
+            return false;
+        }
+        if (payroll != null ? !payroll.equals(that.payroll) : that.payroll != null) {
+            return false;
+        }
+        return parameter != null ? parameter.equals(that.parameter) : that.parameter == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = tariffId != null ? tariffId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (operatorName != null ? operatorName.hashCode() : 0);
+        result = 31 * result + (payroll != null ? payroll.hashCode() : 0);
+        result = 31 * result + (parameter != null ? parameter.hashCode() : 0);
+        return result;
     }
 
     @Override

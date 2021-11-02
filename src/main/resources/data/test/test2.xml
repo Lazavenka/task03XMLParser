@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<AbstractTariffs xmlns="http://www.lozovenko.by/tariffs"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.lozovenko.by/tariffs //tariffs.xsd">
+    <mobileTariff tariffId="ID-1234">
+        <name>TestMobile</name>
+        <payroll>1</payroll>
+        <tariffParameters>
+            <favouriteNumbers>1</favouriteNumbers>
+            <connectionPayment>1</connectionPayment>
+            <billing>SECOND</billing>
+        </tariffParameters>
+        <operator>LIFE</operator>
+        <includedMinutes>1</includedMinutes>
+        <callPrice>
+            <insideNetworkCallPrice>1</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>1</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>1</stationaryPhoneCallPrice>
+        </callPrice>
+    </mobileTariff>
+</AbstractTariffs>

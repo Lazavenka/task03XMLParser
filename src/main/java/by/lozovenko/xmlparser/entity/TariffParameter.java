@@ -7,6 +7,9 @@ public class TariffParameter {
     private BigDecimal connectionPayment;
     private Billing billing;
 
+    public TariffParameter() {
+    }
+
     public TariffParameter(int favouriteNumbers, BigDecimal connectionPayment, Billing billing) {
         this.favouriteNumbers = favouriteNumbers;
         this.connectionPayment = connectionPayment;
@@ -35,6 +38,34 @@ public class TariffParameter {
 
     public void setBilling(Billing billing) {
         this.billing = billing;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        TariffParameter that = (TariffParameter) o;
+
+        if (favouriteNumbers != that.favouriteNumbers) {
+            return false;
+        }
+        if (connectionPayment != null ? !connectionPayment.equals(that.connectionPayment) : that.connectionPayment != null) {
+            return false;
+        }
+        return billing == that.billing;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = favouriteNumbers;
+        result = 31 * result + (connectionPayment != null ? connectionPayment.hashCode() : 0);
+        result = 31 * result + (billing != null ? billing.hashCode() : 0);
+        return result;
     }
 
     @Override

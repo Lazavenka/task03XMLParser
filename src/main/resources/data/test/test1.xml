@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<AbstractTariffs xmlns="http://www.lozovenko.by/tariffs"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://www.lozovenko.by/tariffs //tariffs.xsd">
+    <smartphoneTariff tariffId="ID-9999">
+        <name>TestName</name>
+        <payroll>99.999</payroll>
+        <tariffParameters>
+            <favouriteNumbers>10</favouriteNumbers>
+            <connectionPayment>10.001</connectionPayment>
+            <billing>MINUTE</billing>
+        </tariffParameters>
+        <operator>MTS</operator>
+        <includedMinutes>1000</includedMinutes>
+        <includeTraffic unit="MB">
+            <value>1000</value>
+        </includeTraffic>
+        <trafficCostOverIncluded>0.05</trafficCostOverIncluded>
+        <callPrice>
+            <insideNetworkCallPrice>0.01</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.04</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.12</stationaryPhoneCallPrice>
+        </callPrice>
+    </smartphoneTariff>
+</AbstractTariffs>
