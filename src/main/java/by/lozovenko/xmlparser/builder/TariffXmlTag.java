@@ -1,6 +1,7 @@
 package by.lozovenko.xmlparser.builder;
 
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum TariffXmlTag {
     TARIFFS("Tariffs"),
@@ -25,19 +26,21 @@ public enum TariffXmlTag {
     OUTSIDE_NETWORK_CALL_PRICE("outsideNetworkCallPrice"),
     STATIONARY_PHONE_CALL_PRICE("stationaryPhoneCallPrice"),
     VALUE("value");
+    private static final Map<String, TariffXmlTag> BY_LABEL;
 
     private final String label;
 
+    static {
+        BY_LABEL = new HashMap<>();
+        for (TariffXmlTag tag: values()) {
+            BY_LABEL.put(tag.label, tag);
+        }
+    }
     TariffXmlTag(String label) {
         this.label = label;
     }
-    public static Optional<TariffXmlTag> valueOfLabel(String label){
-        for (TariffXmlTag tariffXmlTag : values()){
-            if (tariffXmlTag.getValue().equals(label)){
-                return Optional.of(tariffXmlTag);
-            }
-        }
-        return Optional.empty();
+    public static TariffXmlTag valueOfLabel(String label){
+        return BY_LABEL.get(label);
     }
     public String getValue() {
         return label;

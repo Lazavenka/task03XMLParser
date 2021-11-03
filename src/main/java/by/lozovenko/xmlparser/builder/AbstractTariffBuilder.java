@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractTariffBuilder {
-    protected Set<AbstractTariff> tariffs;
+    private Set<AbstractTariff> tariffs;
 
     protected AbstractTariffBuilder(){
         tariffs = new HashSet<>();

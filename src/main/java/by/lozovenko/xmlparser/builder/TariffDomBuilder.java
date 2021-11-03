@@ -9,11 +9,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.swing.text.html.HTML;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.math.BigDecimal;
+
+import static by.lozovenko.xmlparser.util.XmlParserUtil.stringToBigDecimal;
 
 
 public class TariffDomBuilder extends AbstractTariffBuilder{
@@ -36,11 +39,11 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
         try {
             document = documentBuilder.parse(filename);
             Element root = document.getDocumentElement();
-            tariffList = root.getElementsByTagName("internetTariff");
+            tariffList = root.getElementsByTagName(TariffXmlTag.INTERNET_TARIFF.getValue());
             buildElements(tariffList);
-            tariffList = root.getElementsByTagName("mobileTariff");
+            tariffList = root.getElementsByTagName(TariffXmlTag.MOBILE_TARIFF.getValue());
             buildElements(tariffList);
-            tariffList = root.getElementsByTagName("smartphoneTariff");
+            tariffList = root.getElementsByTagName(TariffXmlTag.SMARTPHONE_TARIFF.getValue());
             buildElements(tariffList);
         }catch (IOException | SAXException e){
             LOGGER.debug("Parsing exception!", e);
@@ -61,15 +64,17 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
                 InternetTariff internetTariff = (InternetTariff) tariff;
                 InternetTraffic internetTraffic = getInternetTrafficFromElement(tariffElement);
                 internetTariff.setIncludedInternetTraffic(internetTraffic);
-                double trafficCostOverIncluded = Double.parseDouble(getElementTextContent(tariffElement, "trafficCostOverIncluded"));
-                BigDecimal trafficCostOverIncludedBigDec = BigDecimal.valueOf(trafficCostOverIncluded);
-                internetTariff.setTrafficCostOverIncluded(trafficCostOverIncludedBigDec);
+                String trafficCostOverIncluded = getElementTextContent(tariffElement,
+                        TariffXmlTag.TRAFFIC_COST.getValue());
+                internetTariff.setTrafficCostOverIncluded(stringToBigDecimal(trafficCostOverIncluded));
             }
             case "mobileTariff" -> {
                 tariff = new MobileTariff();
                 MobileTariff mobileTariff = (MobileTariff) tariff;
-                Element callPriceElement = (Element) tariffElement.getElementsByTagName("callPrice").item(0);
-                int includedMinutes = Integer.parseInt(getElementTextContent(tariffElement, "includedMinutes"));
+                Element callPriceElement = (Element) tariffElement
+                        .getElementsByTagName(TariffXmlTag.CALL_PRICE.getValue()).item(0);
+                int includedMinutes = Integer.parseInt(getElementTextContent(tariffElement,
+                        TariffXmlTag.INCLUDED_MINUTES.getValue()));
                 mobileTariff.setIncludeMinutes(includedMinutes);
                 CallPrice callPrice = getCallPriceFromElement(callPriceElement);
                 mobileTariff.setCallPrice(callPrice);
@@ -79,32 +84,37 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
                 SmartphoneTariff smartphoneTariff = (SmartphoneTariff) tariff;
                 InternetTraffic internetTraffic = getInternetTrafficFromElement(tariffElement);
                 smartphoneTariff.setIncludedInternetTraffic(internetTraffic);
-                double trafficCostOverIncluded = Double.parseDouble(getElementTextContent(tariffElement, "trafficCostOverIncluded"));
-                BigDecimal trafficCostOverIncludedBigDec = BigDecimal.valueOf(trafficCostOverIncluded);
-                smartphoneTariff.setTrafficCostOverIncluded(trafficCostOverIncludedBigDec);
-                Element callPriceElement = (Element) tariffElement.getElementsByTagName("callPrice").item(0);
-                int includedMinutes = Integer.parseInt(getElementTextContent(tariffElement, "includedMinutes"));
+                String trafficCostOverIncluded = getElementTextContent(tariffElement,
+                        TariffXmlTag.TRAFFIC_COST.getValue());
+                smartphoneTariff.setTrafficCostOverIncluded(stringToBigDecimal(trafficCostOverIncluded));
+                Element callPriceElement = (Element) tariffElement
+                        .getElementsByTagName(TariffXmlTag.CALL_PRICE.getValue()).item(0);
+                int includedMinutes = Integer.parseInt(getElementTextContent(tariffElement,
+                        TariffXmlTag.INCLUDED_MINUTES.getValue()));
                 smartphoneTariff.setIncludeMinutes(includedMinutes);
                 CallPrice callPrice = getCallPriceFromElement(callPriceElement);
                 smartphoneTariff.setCallPrice(callPrice);
             }
             default -> throw new IllegalArgumentException(tariffElement.getTagName());
         }
-        tariff.setTariffId(tariffElement.getAttribute("tariffId"));
-        tariff.setName(getElementTextContent(tariffElement, "name"));
+        tariff.setTariffId(tariffElement.getAttribute(TariffXmlTag.TARIFF_ID.getValue()));
+        tariff.setName(getElementTextContent(tariffElement, TariffXmlTag.NAME.getValue()));
         MobileOperator mobileOperator = MobileOperator.valueOf(getElementTextContent(tariffElement,
-                "operator"));
+                TariffXmlTag.OPERATOR.getValue()));
         tariff.setOperatorName(mobileOperator);
-        double payroll = Double.parseDouble(getElementTextContent(tariffElement, "payroll"));
-        tariff.setPayroll(BigDecimal.valueOf(payroll));
+        String payroll = getElementTextContent(tariffElement, TariffXmlTag.PAYROLL.getValue());
+        tariff.setPayroll(stringToBigDecimal(payroll));
 
-        Element tariffParameterElement = (Element) tariffElement.getElementsByTagName("tariffParameters").item(0);
-        int favouriteNumbers = Integer.parseInt(getElementTextContent(tariffParameterElement, "favouriteNumbers"));
-        double connectionPayment = Double.parseDouble(getElementTextContent(tariffParameterElement, "connectionPayment"));
-        BigDecimal connectionPaymentBigDec = BigDecimal.valueOf(connectionPayment);
-        Billing billing = Billing.valueOf(getElementTextContent(tariffParameterElement, "billing"));
-        TariffParameter tariffParameter = new TariffParameter(favouriteNumbers, connectionPaymentBigDec, billing);
-
+        Element tariffParameterElement = (Element) tariffElement
+                .getElementsByTagName(TariffXmlTag.TARIFF_PARAMETERS.getValue()).item(0);
+        int favouriteNumbers = Integer.parseInt(getElementTextContent(tariffParameterElement,
+                TariffXmlTag.FAVOURITE_NUMBERS.getValue()));
+        String connectionPayment = getElementTextContent(tariffParameterElement,
+                TariffXmlTag.CONNECTION_PAYMENT.getValue());
+        Billing billing = Billing.valueOf(getElementTextContent(tariffParameterElement,
+                TariffXmlTag.BILLING.getValue()));
+        TariffParameter tariffParameter = new TariffParameter(favouriteNumbers,
+                stringToBigDecimal(connectionPayment), billing);
         tariff.setParameter(tariffParameter);
 
         return tariff;
@@ -115,19 +125,21 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
         return node.getTextContent();
     }
     private CallPrice getCallPriceFromElement(Element element){
-        double insideNetworkCallPrice = Double.parseDouble(getElementTextContent(element, "insideNetworkCallPrice"));
-        BigDecimal insideNetworkBigDec = BigDecimal.valueOf(insideNetworkCallPrice);
-        double outsideNetworkCallPrice = Double.parseDouble(getElementTextContent(element, "outsideNetworkCallPrice"));
-        BigDecimal outsideNetworkBigDec = BigDecimal.valueOf(outsideNetworkCallPrice);
-        double stationaryPhoneCallPrice = Double.parseDouble(getElementTextContent(element, "stationaryPhoneCallPrice"));
-        BigDecimal stationaryPhoneBigDec = BigDecimal.valueOf(stationaryPhoneCallPrice);
+        String insideNetworkCallPrice = getElementTextContent(element, TariffXmlTag.INSIDE_NETWORK_CALL_PRICE.getValue());
+        BigDecimal insideNetworkBigDec = stringToBigDecimal(insideNetworkCallPrice);
+        String outsideNetworkCallPrice = getElementTextContent(element, TariffXmlTag.OUTSIDE_NETWORK_CALL_PRICE.getValue());
+        BigDecimal outsideNetworkBigDec = stringToBigDecimal(outsideNetworkCallPrice);
+        String stationaryPhoneCallPrice = getElementTextContent(element, TariffXmlTag.STATIONARY_PHONE_CALL_PRICE.getValue());
+        BigDecimal stationaryPhoneBigDec = stringToBigDecimal(stationaryPhoneCallPrice);
         return new CallPrice(insideNetworkBigDec, outsideNetworkBigDec, stationaryPhoneBigDec);
     }
 
     private InternetTraffic getInternetTrafficFromElement(Element element){
-        Element includeTrafficElement = (Element) element.getElementsByTagName("includeTraffic").item(0);
-        TrafficUnit unit = TrafficUnit.valueOf(includeTrafficElement.getAttribute("unit").toUpperCase());
-        int value = Integer.parseInt(getElementTextContent(includeTrafficElement, "value"));
+        Element includeTrafficElement = (Element) element
+                .getElementsByTagName(TariffXmlTag.INCLUDE_TRAFFIC.getValue()).item(0);
+        String unitString = includeTrafficElement.getAttribute(TariffXmlTag.UNIT.getValue());
+        TrafficUnit unit = TrafficUnit.valueOf(unitString.toUpperCase());
+        int value = Integer.parseInt(getElementTextContent(includeTrafficElement, TariffXmlTag.VALUE.getValue()));
         return new InternetTraffic(value, unit);
     }
 

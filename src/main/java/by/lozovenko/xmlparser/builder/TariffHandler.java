@@ -9,6 +9,8 @@ import javax.xml.XMLConstants;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static by.lozovenko.xmlparser.util.XmlParserUtil.stringToBigDecimal;
+
 public class TariffHandler extends DefaultHandler {
 
     private Set<AbstractTariff> tariffs;
@@ -37,8 +39,7 @@ public class TariffHandler extends DefaultHandler {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attrs) {
-        Optional<TariffXmlTag> tariffXmlTagOptional = TariffXmlTag.valueOfLabel(qName);
-        tariffXmlTagOptional.ifPresent(tariffXmlTag -> currentXmlTag = tariffXmlTag);
+        currentXmlTag = TariffXmlTag.valueOfLabel(qName);
         if (complexTypes.contains(currentXmlTag)) {
             switch (currentXmlTag) {
                 case INTERNET_TARIFF -> {
@@ -65,7 +66,7 @@ public class TariffHandler extends DefaultHandler {
                 }
             }
         } else {
-            TariffXmlTag temp = tariffXmlTagOptional.get();
+            TariffXmlTag temp = TariffXmlTag.valueOfLabel(qName);
             if (withText.contains(temp)) {
                 currentXmlTag = temp;
             }
@@ -82,11 +83,23 @@ public class TariffHandler extends DefaultHandler {
             case NAME -> current.setName(data);
             case PAYROLL -> current.setPayroll(stringToBigDecimal(data));
             case OPERATOR -> current.setOperatorName(MobileOperator.valueOf(data));
-            case TRAFFIC_COST -> ((SmartphoneTariff) current).setTrafficCostOverIncluded(stringToBigDecimal(data));
+            case TRAFFIC_COST -> {
+                if (current.getClass() == SmartphoneTariff.class) {
+                    ((SmartphoneTariff) current).setTrafficCostOverIncluded(stringToBigDecimal(data));
+                } else {
+                    ((InternetTariff) current).setTrafficCostOverIncluded(stringToBigDecimal(data));
+                }
+            }
             case FAVOURITE_NUMBERS -> currentTariffParameter.setFavouriteNumbers(Integer.parseInt(data));
             case CONNECTION_PAYMENT -> currentTariffParameter.setConnectionPayment(stringToBigDecimal(data));
             case BILLING -> currentTariffParameter.setBilling(Billing.valueOf(data));
-            case INCLUDED_MINUTES -> ((SmartphoneTariff) current).setIncludeMinutes(Integer.parseInt(data));
+            case INCLUDED_MINUTES -> {
+                if (current.getClass() == SmartphoneTariff.class) {
+                    ((SmartphoneTariff) current).setIncludeMinutes(Integer.parseInt(data));
+                } else {
+                    ((MobileTariff) current).setIncludeMinutes(Integer.parseInt(data));
+                }
+            }
             case UNIT -> currentInternetTraffic.setUnit(TrafficUnit.valueOf(data));
             case VALUE -> currentInternetTraffic.setValue(Integer.parseInt(data));
             case INSIDE_NETWORK_CALL_PRICE -> currentCallPrice.setInsideNetworkCallPrice(stringToBigDecimal(data));
@@ -95,33 +108,34 @@ public class TariffHandler extends DefaultHandler {
         }
     }
 
-    private BigDecimal stringToBigDecimal(String value) {
-        double number = Double.parseDouble(value);
-        return BigDecimal.valueOf(number);
-    }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        Optional<TariffXmlTag> tariffXmlTagOptional = TariffXmlTag.valueOfLabel(qName);
-        if (tariffXmlTagOptional.isPresent()) {
-            TariffXmlTag tag = tariffXmlTagOptional.get();
-            switch (tag) {
-                case MOBILE_TARIFF, INTERNET_TARIFF, SMARTPHONE_TARIFF -> {
-                    tariffs.add(current);
-                    current = null;
-                }
-                case TARIFF_PARAMETERS -> {
-                    current.setParameter(currentTariffParameter);
-                    currentTariffParameter = null;
-                }
-                case CALL_PRICE -> {
+        TariffXmlTag tag = TariffXmlTag.valueOfLabel(qName);
+        switch (tag) {
+            case MOBILE_TARIFF, INTERNET_TARIFF, SMARTPHONE_TARIFF -> {
+                tariffs.add(current);
+                current = null;
+            }
+            case TARIFF_PARAMETERS -> {
+                current.setParameter(currentTariffParameter);
+                currentTariffParameter = null;
+            }
+            case CALL_PRICE -> {
+                if (current.getClass() == SmartphoneTariff.class) {
                     ((SmartphoneTariff) current).setCallPrice(currentCallPrice);
-                    currentCallPrice = null;
+                } else {
+                    ((MobileTariff) current).setCallPrice(currentCallPrice);
                 }
-                case INCLUDE_TRAFFIC -> {
+                currentCallPrice = null;
+            }
+            case INCLUDE_TRAFFIC -> {
+                if (current.getClass() == SmartphoneTariff.class) {
                     ((SmartphoneTariff) current).setIncludedInternetTraffic(currentInternetTraffic);
-                    currentInternetTraffic = null;
+                } else {
+                    ((InternetTariff) current).setIncludedInternetTraffic(currentInternetTraffic);
                 }
+                currentInternetTraffic = null;
             }
         }
         currentXmlTag = null;
