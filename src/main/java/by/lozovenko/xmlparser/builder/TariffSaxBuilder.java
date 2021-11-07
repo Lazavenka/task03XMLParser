@@ -1,7 +1,5 @@
 package by.lozovenko.xmlparser.builder;
 
-
-import by.lozovenko.xmlparser.entity.AbstractTariff;
 import by.lozovenko.xmlparser.exception.ProjectException;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -14,14 +12,15 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
-public class TariffSaxBuilder extends AbstractTariffBuilder{
+public class TariffSaxBuilder extends AbstractTariffBuilder {
     private static final Logger LOGGER = LogManager.getLogger();
     private XMLReader xmlReader;
     private TariffHandler handler;
+
     public TariffSaxBuilder() {
         handler = new TariffHandler();
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        try{
+        try {
             SAXParser saxParser = factory.newSAXParser();
             xmlReader = saxParser.getXMLReader();
         } catch (ParserConfigurationException | SAXException e) {

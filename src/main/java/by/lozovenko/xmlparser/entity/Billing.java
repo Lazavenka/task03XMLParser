@@ -2,7 +2,7 @@ package by.lozovenko.xmlparser.entity;
 
 public enum Billing {
     SECOND,
-    TVELVESECOND,
+    TWELVESECOND,
     MINUTE,
     NONE
 }

@@ -9,7 +9,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.swing.text.html.HTML;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,25 +18,26 @@ import java.math.BigDecimal;
 import static by.lozovenko.xmlparser.util.XmlParserUtil.stringToBigDecimal;
 
 
-public class TariffDomBuilder extends AbstractTariffBuilder{
+public class TariffDomBuilder extends AbstractTariffBuilder {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private DocumentBuilder documentBuilder;
-    public TariffDomBuilder(){
+
+    public TariffDomBuilder() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             documentBuilder = factory.newDocumentBuilder();
-        }catch (ParserConfigurationException e){
+        } catch (ParserConfigurationException e) {
             LOGGER.debug("Parser config exception!", e);
         }
     }
 
     @Override
-    public void buildTariffs(String filename) {
+    public void buildTariffs(String filepath) {
         Document document;
         NodeList tariffList;
         try {
-            document = documentBuilder.parse(filename);
+            document = documentBuilder.parse(filepath);
             Element root = document.getDocumentElement();
             tariffList = root.getElementsByTagName(TariffXmlTag.INTERNET_TARIFF.getValue());
             buildElements(tariffList);
@@ -45,18 +45,20 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
             buildElements(tariffList);
             tariffList = root.getElementsByTagName(TariffXmlTag.SMARTPHONE_TARIFF.getValue());
             buildElements(tariffList);
-        }catch (IOException | SAXException e){
+        } catch (IOException | SAXException e) {
             LOGGER.debug("Parsing exception!", e);
         }
     }
-    private void buildElements(NodeList nodeList){
+
+    private void buildElements(NodeList nodeList) {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element tariffElement = (Element) nodeList.item(i);
             AbstractTariff abstractTariff = buildTariff(tariffElement);
             super.getTariffs().add(abstractTariff);
         }
     }
-    private AbstractTariff buildTariff(Element tariffElement){
+
+    private AbstractTariff buildTariff(Element tariffElement) {
         AbstractTariff tariff;
         switch (tariffElement.getTagName()) {
             case "internetTariff" -> {
@@ -119,12 +121,14 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
 
         return tariff;
     }
-    private String getElementTextContent(Element element, String elementName){
+
+    private String getElementTextContent(Element element, String elementName) {
         NodeList list = element.getElementsByTagName(elementName);
         Node node = list.item(0);
         return node.getTextContent();
     }
-    private CallPrice getCallPriceFromElement(Element element){
+
+    private CallPrice getCallPriceFromElement(Element element) {
         String insideNetworkCallPrice = getElementTextContent(element, TariffXmlTag.INSIDE_NETWORK_CALL_PRICE.getValue());
         BigDecimal insideNetworkBigDec = stringToBigDecimal(insideNetworkCallPrice);
         String outsideNetworkCallPrice = getElementTextContent(element, TariffXmlTag.OUTSIDE_NETWORK_CALL_PRICE.getValue());
@@ -134,7 +138,7 @@ public class TariffDomBuilder extends AbstractTariffBuilder{
         return new CallPrice(insideNetworkBigDec, outsideNetworkBigDec, stationaryPhoneBigDec);
     }
 
-    private InternetTraffic getInternetTrafficFromElement(Element element){
+    private InternetTraffic getInternetTrafficFromElement(Element element) {
         Element includeTrafficElement = (Element) element
                 .getElementsByTagName(TariffXmlTag.INCLUDE_TRAFFIC.getValue()).item(0);
         String unitString = includeTrafficElement.getAttribute(TariffXmlTag.UNIT.getValue());

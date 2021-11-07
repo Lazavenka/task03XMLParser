@@ -8,12 +8,12 @@ import by.lozovenko.xmlparser.exception.ProjectException;
 
 public class BuilderFactory {
 
-    private BuilderFactory(){
+    private BuilderFactory() {
     }
 
     public static AbstractTariffBuilder createTariffBuilder(ParserType parser) throws EnumConstantNotPresentException, ProjectException {
         AbstractTariffBuilder tariffBuilder;
-        switch (parser){
+        switch (parser) {
             case DOM -> tariffBuilder = new TariffDomBuilder();
             case SAX -> tariffBuilder = new TariffSaxBuilder();
             case STAX -> tariffBuilder = new TariffStaxBuilder();

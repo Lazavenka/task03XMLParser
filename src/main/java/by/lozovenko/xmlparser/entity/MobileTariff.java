@@ -3,11 +3,11 @@ package by.lozovenko.xmlparser.entity;
 
 import java.math.BigDecimal;
 
-public class MobileTariff extends AbstractTariff{
+public class MobileTariff extends AbstractTariff {
     private int includeMinutes;
     private CallPrice callPrice;
 
-    public MobileTariff(){
+    public MobileTariff() {
     }
 
     public MobileTariff(String tariffId, String name, MobileOperator operatorName, BigDecimal payroll,

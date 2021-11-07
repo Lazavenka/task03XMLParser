@@ -1,6 +1,5 @@
 package by.lozovenko.xmlparser.builder;
 
-import by.lozovenko.xmlparser.entity.MobileTariff;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

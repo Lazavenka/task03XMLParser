@@ -5,8 +5,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.XMLConstants;
-import java.math.BigDecimal;
 import java.util.*;
 
 import static by.lozovenko.xmlparser.util.XmlParserUtil.stringToBigDecimal;
@@ -30,11 +28,6 @@ public class TariffHandler extends DefaultHandler {
 
     public Set<AbstractTariff> getTariffs() {
         return tariffs;
-    }
-
-    @Override
-    public void startDocument() throws SAXException {
-        super.startDocument();
     }
 
     @Override

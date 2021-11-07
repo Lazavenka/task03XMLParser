@@ -2,14 +2,15 @@ package by.lozovenko.xmlparser.entity;
 
 import java.math.BigDecimal;
 
-public class SmartphoneTariff extends AbstractTariff{
+public class SmartphoneTariff extends AbstractTariff {
     private InternetTraffic includedInternetTraffic;
     private int includeMinutes;
     private BigDecimal trafficCostOverIncluded;
     private CallPrice callPrice;
 
-    public SmartphoneTariff(){
+    public SmartphoneTariff() {
     }
+
     public SmartphoneTariff(String tariffId, String name, MobileOperator operatorName, BigDecimal payroll, TariffParameter parameter,
                             InternetTraffic includedInternetTraffic, int includeMinutes, BigDecimal trafficCostOverIncluded,
                             CallPrice callPrice) {

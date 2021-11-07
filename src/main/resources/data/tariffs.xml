@@ -59,7 +59,7 @@
         <tariffParameters>
             <favouriteNumbers>10</favouriteNumbers>
             <connectionPayment>5.5</connectionPayment>
-            <billing>TVELVESECOND</billing>
+            <billing>TWELVESECOND</billing>
         </tariffParameters>
         <operator>A1</operator>
         <includedMinutes>10000</includedMinutes>
@@ -109,4 +109,70 @@
             <stationaryPhoneCallPrice>0.2</stationaryPhoneCallPrice>
         </callPrice>
     </smartphoneTariff>
+    <internetTariff tariffId="ID-0007">
+        <name>Все включено</name>
+        <payroll>55.4</payroll>
+        <tariffParameters>
+            <favouriteNumbers>0</favouriteNumbers>
+            <connectionPayment>12.5</connectionPayment>
+            <billing>NONE</billing>
+        </tariffParameters>
+        <operator>A1</operator>
+        <includeTraffic unit="GB">
+            <value>10000</value>
+        </includeTraffic>
+        <trafficCostOverIncluded>0.01</trafficCostOverIncluded>
+    </internetTariff>
+    <smartphoneTariff tariffId="ID-0008">
+        <name>Smart ultimate</name>
+        <payroll>99.9</payroll>
+        <tariffParameters>
+            <favouriteNumbers>50</favouriteNumbers>
+            <connectionPayment>0.01</connectionPayment>
+            <billing>SECOND</billing>
+        </tariffParameters>
+        <operator>MTS</operator>
+        <includedMinutes>1000</includedMinutes>
+        <includeTraffic unit="GB">
+            <value>1000</value>
+        </includeTraffic>
+        <trafficCostOverIncluded>0.01</trafficCostOverIncluded>
+        <callPrice>
+            <insideNetworkCallPrice>0</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.01</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.02</stationaryPhoneCallPrice>
+        </callPrice>
+    </smartphoneTariff>
+    <mobileTariff tariffId="ID-0009">
+        <name>Близкие</name>
+        <payroll>9.99</payroll>
+        <tariffParameters>
+            <favouriteNumbers>15</favouriteNumbers>
+            <connectionPayment>0</connectionPayment>
+            <billing>TWELVESECOND</billing>
+        </tariffParameters>
+        <operator>LIFE</operator>
+        <includedMinutes>1000</includedMinutes>
+        <callPrice>
+            <insideNetworkCallPrice>0.01</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.01</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.01</stationaryPhoneCallPrice>
+        </callPrice>
+    </mobileTariff>
+    <mobileTariff tariffId="ID-0010">
+        <name>Что еще надо.</name>
+        <payroll>13.2</payroll>
+        <tariffParameters>
+            <favouriteNumbers>1</favouriteNumbers>
+            <connectionPayment>0</connectionPayment>
+            <billing>MINUTE</billing>
+        </tariffParameters>
+        <operator>MTS</operator>
+        <includedMinutes>100</includedMinutes>
+        <callPrice>
+            <insideNetworkCallPrice>0.1</insideNetworkCallPrice>
+            <outsideNetworkCallPrice>0.1</outsideNetworkCallPrice>
+            <stationaryPhoneCallPrice>0.1</stationaryPhoneCallPrice>
+        </callPrice>
+    </mobileTariff>
 </AbstractTariffs>

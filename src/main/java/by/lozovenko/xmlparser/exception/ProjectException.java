@@ -1,6 +1,6 @@
 package by.lozovenko.xmlparser.exception;
 
-public class ProjectException extends Exception{
+public class ProjectException extends Exception {
     public ProjectException() {
         super();
     }

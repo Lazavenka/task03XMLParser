@@ -13,7 +13,7 @@ public class TariffDomBuilderTest {
     private AbstractTariffBuilder tariffBuilder;
 
     private static final String XML_FILE_PATH = "src/main/resources/data/test/test1.xml";
-    private static final String XSD_FILE_PATH = "data/tariffs.xsd";
+
     @BeforeClass
     public void setUp(){
         expectedTariff = TestTariffProvider.createExpectedTariff();

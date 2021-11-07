@@ -45,7 +45,7 @@
                 <simpleType>
                     <restriction base="string">
                         <enumeration value="SECOND"/>
-                        <enumeration value="TVELVESECOND"/>
+                        <enumeration value="TWELVESECOND"/>
                         <enumeration value="MINUTE"/>
                         <enumeration value="NONE"/>
                     </restriction>
